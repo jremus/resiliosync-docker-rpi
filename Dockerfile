@@ -1,7 +1,7 @@
 FROM resin/rpi-raspbian:jessie
 MAINTAINER Jens Remus <jens.remus@gmail.com>
 
-ENV SYNC_VERSION 2.4.2
+ENV SYNC_VERSION 2.4.4
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \

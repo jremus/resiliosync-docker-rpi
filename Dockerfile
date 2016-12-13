@@ -1,7 +1,7 @@
 FROM resin/rpi-raspbian:jessie
 MAINTAINER Jens Remus <jens.remus@gmail.com>
 
-ENV BTSYNC_VERSION 2.3.8
+ENV SYNC_VERSION 2.4.2
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -9,17 +9,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /opt/btsync/bin /var/opt/btsync
+RUN mkdir -p /opt/resilio-sync/bin /var/opt/resilio-sync
 
-RUN wget --progress=dot:mega -O /tmp/btsync.tar.gz "https://download-cdn.getsync.com/$BTSYNC_VERSION/linux-armhf/BitTorrent-Sync_armhf.tar.gz" \
- && tar -xf /tmp/btsync.tar.gz -C /opt/btsync/bin btsync \
- && rm /tmp/btsync.tar.gz
+RUN wget --progress=dot:mega -O /tmp/resilio-sync.tar.gz "https://download-cdn.resilio.com/$SYNC_VERSION/linux-armhf/resilio-sync_armhf.tar.gz" \
+ && tar -xf /tmp/resilio-sync.tar.gz -C /opt/resilio-sync/bin rslsync \
+ && rm /tmp/resilio-sync.tar.gz
 
-COPY btsync.conf /etc/opt/
+COPY resilio-sync.conf /etc/opt/
 
-VOLUME /var/opt/btsync
+VOLUME /var/opt/resilio-sync
 
 EXPOSE 8888 55555
 
-ENTRYPOINT ["/opt/btsync/bin/btsync", "--nodaemon"]
-CMD ["--log", "--config", "/etc/opt/btsync.conf"]
+ENTRYPOINT ["/opt/resilio-sync/bin/rslsync", "--nodaemon"]
+CMD ["--log", "--config", "/etc/opt/resilio-sync.conf"]

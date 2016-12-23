@@ -1,19 +1,21 @@
-FROM resin/rpi-raspbian:jessie
+FROM armhf/alpine:latest
 MAINTAINER Jens Remus <jens.remus@gmail.com>
 
 ENV SYNC_VERSION 2.4.4
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    wget \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
 RUN mkdir -p /opt/resilio-sync/bin /var/opt/resilio-sync
 
-RUN wget --progress=dot:mega -O /tmp/resilio-sync.tar.gz "https://download-cdn.resilio.com/$SYNC_VERSION/linux-armhf/resilio-sync_armhf.tar.gz" \
+RUN apk add --no-cache --virtual .fetch-deps \
+      ca-certificates \
+      openssl \
+      wget \
+ \
+ && apk add --no-cache libc6-compat \
+ && wget -O /tmp/resilio-sync.tar.gz "https://download-cdn.resilio.com/$SYNC_VERSION/linux-armhf/resilio-sync_armhf.tar.gz" \
  && tar -xf /tmp/resilio-sync.tar.gz -C /opt/resilio-sync/bin rslsync \
- && rm /tmp/resilio-sync.tar.gz
+ && rm /tmp/resilio-sync.tar.gz \
+ \
+ && apk del .fetch-deps
 
 COPY resilio-sync.conf /etc/opt/
 

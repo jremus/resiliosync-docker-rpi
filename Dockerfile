@@ -1,7 +1,7 @@
-FROM resin/rpi-raspbian:wheezy
+FROM resin/rpi-raspbian:jessie
 MAINTAINER Jens Remus <jens.remus@gmail.com>
 
-ENV BTSYNC_VERSION 1.4.111
+ENV BTSYNC_VERSION 2.3.8
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN mkdir -p /opt/btsync/bin /var/opt/btsync
 
-RUN wget --progress=dot:mega -O /tmp/btsync.tar.gz "http://syncapp.bittorrent.com/$BTSYNC_VERSION/btsync_arm-$BTSYNC_VERSION.tar.gz" \
+RUN wget --progress=dot:mega -O /tmp/btsync.tar.gz "https://download-cdn.getsync.com/$BTSYNC_VERSION/linux-armhf/BitTorrent-Sync_armhf.tar.gz" \
  && tar -xf /tmp/btsync.tar.gz -C /opt/btsync/bin btsync \
  && rm /tmp/btsync.tar.gz
 

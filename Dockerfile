@@ -1,7 +1,7 @@
 FROM armhf/alpine:latest
 MAINTAINER Jens Remus <jens.remus@gmail.com>
 
-ENV SYNC_VERSION 2.4.4
+ENV SYNC_VERSION 2.4.5
 
 RUN mkdir -p /opt/resilio-sync/bin /var/opt/resilio-sync
 

@@ -1,7 +1,7 @@
-FROM resin/rpi-raspbian:jessie
+FROM arm32v7/debian:jessie-slim
 MAINTAINER Jens Remus <jens.remus@gmail.com>
 
-ENV SYNC_VERSION 2.4.4
+ENV SYNC_VERSION 2.5.9
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
